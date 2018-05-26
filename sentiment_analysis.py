@@ -5,7 +5,7 @@
 # 1. take a small subset of the train dataset
 # 2. clean the data - remove all stop-words
 # 3. convert the text to a dictionary (features)
-# 4. from the created dictionary, identify the keywords (if the keyword is found and the train data say 1 then identify it) .. done
+# 4. from the created dictionary, identify the keywords (if the keyword is found and the train data say 1 then identify it)
 # 5. for all the tweets, where any of the identified keywords are found, mark them
 # 6. calculate the precision and accuracy
 
@@ -71,6 +71,23 @@ text_file.close()
 
 # Model training complete. The output of this is a file named
 # "unique_words.txt" which has the list of the unique words
+
+# --------------------------------------------
+file_handle_uq = open("unique_words.txt","r")
+file_handle_cu = open("custom_stop_words.txt","r")
+unique_words = file_handle_uq.read()
+custom_words = file_handle_cu.read()
+unique_words = unique_words.translate(None, "[',]")
+custom_words = custom_words.split(" ")
+for w in custom_words:
+    if w in unique_words:
+        print ("DBG: replacing ",w)
+        unique_words = unique_words.replace(w,'')
+
+text_file = open("unique_words.txt", "w")
+text_file.write("%s" %unique_keywords)
+text_file.close()
+# --------------------------------------------
 
 dframe_test = pd.read_csv('test_data.csv')
 # read in the overall unique words
