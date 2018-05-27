@@ -1,13 +1,25 @@
 
 # coding: utf-8
 
-# overall plan of action 
-# 1. take a small subset of the train dataset
-# 2. clean the data - remove all stop-words
-# 3. convert the text to a dictionary (features)
-# 4. from the created dictionary, identify the keywords (if the keyword is found and the train data say 1 then identify it)
-# 5. for all the tweets, where any of the identified keywords are found, mark them
-# 6. calculate the precision and accuracy
+'''
+The script takes the train_data.csv for training the model. The training
+dataset has to be at the same folder location where the script is placed.
+Additionally, the script/model would need a file named custom_stop_words.txt
+that holds the stop words which would be ignored from the tweets. These stop
+words are in addition to the english words as provided by the Python nltk.
+
+Once the model train itself, it generates a file named  unique_words.txt
+the file contains the list of unique words against which the model was trained
+
+Once trained, the model reads the test data from test_data.csv to predict
+the "is_provocative" values. This would be appended in the Model_results.csv
+which holds the complete information.
+Header of this result file is as under:
+	id	label	tweet	filtered_tweet_dbg	is_provacative
+
+NOTE: The file custom_stop_words is not added to the GitHub, but is kept on the
+Gmail servers. 
+'''
 
 # import the modules needed
 import numpy as np
@@ -21,8 +33,12 @@ stop_words = set(stopwords.words('english'))
 dframe = pd.read_csv('train_data.csv')
 
 # removing other frequently used words in Tweets
-# source of these words picked from http://techland.time.com/2009/06/08/the-500-most-frequently-used-words-on-twitter/
-# https://github.com/jeffreybreen/twitter-sentiment-analysis-tutorial-201107/blob/master/data/opinion-lexicon-English/positive-words.txt
+# source of these words picked from http://techland.time.com/2009/06/08/the-
+
+500-most-frequently-used-words-on-twitter/
+# https://github.com/jeffreybreen/twitter-sentiment-analysis-tutorial-
+
+201107/blob/master/data/opinion-lexicon-English/positive-words.txt
 # read the custom stop-words from a txt file and keep that in memory
 file_handle = open("custom_stop_words.txt","r")
 custom_stop_words = file_handle.read()
@@ -64,15 +80,15 @@ clean_tweet = merged_tweet.translate(None, ",.;:@#(?!&$^-_)")
 
 # get the unique word list from all the filtered tweets that are marke
 from string import punctuation
-unique_keywords = [w for w in set(clean_tweet.translate(None, punctuation).lower().split()) if len(w) >= 1]
+unique_keywords = [w for w in set(clean_tweet.translate(None, 
+
+punctuation).lower().split()) if len(w) >= 1]
 text_file = open("unique_words.txt", "w")
 text_file.write("%s" %unique_keywords)
 text_file.close()
 
 # Model training complete. The output of this is a file named
 # "unique_words.txt" which has the list of the unique words
-
-# --------------------------------------------
 file_handle_uq = open("unique_words.txt","r")
 file_handle_cu = open("custom_stop_words.txt","r")
 unique_words = file_handle_uq.read()
@@ -81,13 +97,11 @@ unique_words = unique_words.translate(None, "[',]")
 custom_words = custom_words.split(" ")
 for w in custom_words:
     if w in unique_words:
-        print ("DBG: replacing ",w)
         unique_words = unique_words.replace(w,'')
 
 text_file = open("unique_words.txt", "w")
 text_file.write("%s" %unique_keywords)
 text_file.close()
-# --------------------------------------------
 
 dframe_test = pd.read_csv('test_data.csv')
 # read in the overall unique words
@@ -136,7 +150,8 @@ for row in dframe_test.tweet:
     
     filtered_tweet_dbg.append(str1)
 
-dframe_test['model_results'] = pd.DataFrame({'filter':model_results})
+# Uncomment the next line for debugging purpose
+# dframe_test['model_results'] = pd.DataFrame({'filter':model_results})
 dframe_test['filtered_tweet_dbg'] = pd.DataFrame({'filter':filtered_tweet_dbg})
-dframe_test['model_results_coded'] = pd.DataFrame({'filter':model_results_coded})
-dframe_test.to_csv("results_subeer.csv")
+dframe_test['is_provacative'] = pd.DataFrame({'filter':model_results_coded})
+dframe_test.to_csv("Model_results.csv")
