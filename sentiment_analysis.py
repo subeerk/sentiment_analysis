@@ -1,6 +1,3 @@
-
-# coding: utf-8
-
 '''
 The script takes the train_data.csv for training the model. The training
 dataset has to be at the same folder location where the script is placed.
@@ -33,12 +30,8 @@ stop_words = set(stopwords.words('english'))
 dframe = pd.read_csv('train_data.csv')
 
 # removing other frequently used words in Tweets
-# source of these words picked from http://techland.time.com/2009/06/08/the-
-
-500-most-frequently-used-words-on-twitter/
-# https://github.com/jeffreybreen/twitter-sentiment-analysis-tutorial-
-
-201107/blob/master/data/opinion-lexicon-English/positive-words.txt
+# source of these words picked from http://techland.time.com/2009/06/08/the-500-most-frequently-used-words-on-twitter/
+# https://github.com/jeffreybreen/twitter-sentiment-analysis-tutorial-201107/blob/master/data/opinion-lexicon-English/positive-words.txt
 # read the custom stop-words from a txt file and keep that in memory
 file_handle = open("custom_stop_words.txt","r")
 custom_stop_words = file_handle.read()
@@ -80,9 +73,7 @@ clean_tweet = merged_tweet.translate(None, ",.;:@#(?!&$^-_)")
 
 # get the unique word list from all the filtered tweets that are marke
 from string import punctuation
-unique_keywords = [w for w in set(clean_tweet.translate(None, 
-
-punctuation).lower().split()) if len(w) >= 1]
+unique_keywords = [w for w in set(clean_tweet.translate(None, punctuation).lower().split()) if len(w) >= 1]
 text_file = open("unique_words.txt", "w")
 text_file.write("%s" %unique_keywords)
 text_file.close()
