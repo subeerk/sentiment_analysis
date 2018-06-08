@@ -17,6 +17,17 @@ Header of this result file is as under:
 NOTE: The file custom_stop_words is not added to the GitHub, but is kept on the
 Gmail servers. 
 '''
+'''
+Confusion matrix:
+	Prediction
+-----------------------
+Facts |	TRUE	FALSE
+------|----------------
+TRUE  |	1893	349
+------|----------------
+FALSE |	1186	28534
+------|----------------
+'''
 
 # import the modules needed
 import numpy as np
