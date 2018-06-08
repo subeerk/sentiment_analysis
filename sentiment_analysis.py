@@ -18,26 +18,6 @@ NOTE: The file custom_stop_words is not added to the GitHub, but is kept on the
 Gmail servers. 
 '''
 
-'''
-def _recall_precision_calculator():
-    # calculate the precision and recall values
-    # calculate diff between the actual results and the predicted values
-    # count such that diff=0 divided by total number of tweets = recall
-caught relevant / total relevant = recall
-caught relevant / total caught = precision
-
-recall
----------
-total is 31962
-correct prediction is 26351
-
-precision
-------------
-2077 caught correctly
-2242 is the actual
-
-'''
-
 # import the modules needed
 import numpy as np
 import pandas as pd
