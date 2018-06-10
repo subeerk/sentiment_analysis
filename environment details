@@ -1,0 +1,33 @@
+Python version used: 2.7.14
+
+C:\Users>python
+Python 2.7.14 |Anaconda, Inc.| (default, Oct 15 2017, 06:26:11) [MSC v.1500 32 b
+it (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+>>>
+-----------------------------------------------------------------------------------
+C:\Users\subeer>python sentiment_analysis.py UnKnown
+Script invoked in the mode: unknown
+Unknown mode invoked..exiting
+
+C:\Users\subeer>
+C:\Users\subeer>python sentiment_analysis.py tRAin
+Script invoked in the mode: train
+In the Training mode..
+Model training complete..
+
+C:\Users\subeer>
+C:\Users\subeer>python sentiment_analysis.py TEST
+Script invoked in the mode: test
+In the Test mode..
+Completed the Test mode..
+
+C:\Users\subeer>
+C:\Users\subeer>
+-----------------------------------------------------------------------------------
+Custom Stop words
+File containing custom stop words are kept in the Google Drive folder:
+Machine Learning -> sentiment analaysis
+
+This file is needed for the execution of the script.
